@@ -14,19 +14,22 @@ class Win1:
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
         self.img1, self.button1 = self.create_button("View Rule List",
-            lambda: self.new_window(Win2))
+            lambda: self.new_window(Win2),
+            "images/imgtest.ico")
         self.img2, self.button2 = self.create_button("Add Rule",
-            lambda: self.new_window(Win3))
+            lambda: self.new_window(Win3),
+            "images/imgtest.ico")
         self.img3, self.quit_button3 = self.create_button(
                         "Quit",
-                        lambda: self.close_window())
+                        lambda: self.close_window(),
+                        "images/imgtest.ico")
         self.frame.pack()
  
-    def create_button(self, text, command):
+    def create_button(self, text, command, icon_path):
         ''' Button that creates a new window
         pass the text and the command
         " '''
-        img = tk.PhotoImage(file="images\msdos.ico")
+        img = tk.PhotoImage(file=icon_path)
         img = img.subsample(2, 2)
         butt = tk.Button(
             self.frame,
