@@ -15,14 +15,14 @@ class Win1:
         self.frame = tk.Frame(self.master)
         self.img1, self.button1 = self.create_button("View Rule List",
             lambda: self.new_window(Win2),
-            "images/imgtest.ico")
+            "images/MainMenu.ico")
         self.img2, self.button2 = self.create_button("Add Rule",
             lambda: self.new_window(Win3),
-            "images/imgtest.ico")
+            "images/MainMenu.ico")
         self.img3, self.quit_button3 = self.create_button(
                         "Quit",
                         lambda: self.close_window(),
-                        "images/imgtest.ico")
+                        "images/MainMenu.ico")
         self.frame.pack()
  
     def create_button(self, text, command, icon_path):
@@ -82,12 +82,14 @@ class Win2(Win1):
         # Button 1
         self.img1, self.button2 = self.create_button(
                                 "Add Rule",
-                                lambda: self.new_window(Win3))
+                                lambda: self.new_window(Win3),
+                                "images/MainMenu.ico")
  
         # Button 2
         self.img2, self.quit_button = self.create_button(
                                 "Quit",
-                                lambda: self.close_window())
+                                lambda: self.close_window(),
+                                "images/MainMenu.ico")
  
  
  
@@ -103,7 +105,8 @@ class Win3(Win2):
         self.frame = tk.Frame(self.master)
         self.img1, self.quit_button = self.create_button(
                                     "Quit",
-                                    command=self.close_window)
+                                    lambda: self.close_window(),
+                                    "images/MainMenu.ico")
         self.label = tk.Label(
             # self.frame, text="THIS IS ONLY IN THE THIRD WINDOW"
             )
