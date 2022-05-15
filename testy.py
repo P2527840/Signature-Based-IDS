@@ -6,23 +6,22 @@ class Win1:
     def __init__(self, master):
         self.master = master
         self.master.geometry("400x300")
-        self.master.title("GUI")
+        self.master.title("Signature-Based IDS")
         self.show_widgets()
         self.master_icon = PhotoImage(file='images/msdos.ico')
         self.master.tk.call('wm', 'iconphoto', root._w, self.master_icon)
  
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
-        self.img1, self.button1 = self.create_button("View Rule List",
+        self.img1, self.button1 = self.create_button("",
             lambda: self.new_window(Win2),
-            "images/MainMenu.ico")
-        self.img2, self.button2 = self.create_button("Add Rule",
+            "images/View Rule List.ico")
+        self.img2, self.button2 = self.create_button("",
             lambda: self.new_window(Win3),
-            "images/MainMenu.ico")
-        self.img3, self.quit_button3 = self.create_button(
-                        "Quit",
+            "images/Add Rule.ico")
+        self.img3, self.quit_button3 = self.create_button("",
                         lambda: self.close_window(),
-                        "images/MainMenu.ico")
+                        "images/Quit.ico")
         self.frame.pack()
  
     def create_button(self, text, command, icon_path):
@@ -81,15 +80,15 @@ class Win2(Win1):
  
         # Button 1
         self.img1, self.button2 = self.create_button(
-                                "Add Rule",
+                                "",
                                 lambda: self.new_window(Win3),
-                                "images/MainMenu.ico")
+                                "images/Add Rule.ico")
  
         # Button 2
         self.img2, self.quit_button = self.create_button(
-                                "Quit",
+                                "",
                                 lambda: self.close_window(),
-                                "images/MainMenu.ico")
+                                "images/Quit.ico")
  
  
  
@@ -104,9 +103,9 @@ class Win3(Win2):
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
         self.img1, self.quit_button = self.create_button(
-                                    "Quit",
+                                    "",
                                     lambda: self.close_window(),
-                                    "images/MainMenu.ico")
+                                    "images/Quit.ico")
         self.label = tk.Label(
             # self.frame, text="THIS IS ONLY IN THE THIRD WINDOW"
             )
