@@ -110,7 +110,7 @@ class Win3(Win2):
     
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
-        self.entry = tk.Text(self.master,  height=1, width=50,bg='white') 
+        self.entry = tk.Text(self.master, height=1, width=50, bg='white') 
         
         self.label1 = tk.Label(
             self.frame, text="Syntax of writing Snort rule: \n alert ip any any -> any any (msg: 'IP Packet Detected';)"
@@ -179,21 +179,21 @@ class Win3(Win2):
     def handle_add_rule_click(self):
         # get the value
         new_rule = self.label1.getvalue()
-
+        new_rule.set()
         #insert rule
         insert_new_rule_to_db(new_rule)
 
     
 def insert_new_rule_to_db(rule: str):
     """
-    rule: alert any any
+    rule: alert any any -> any any (msg: "IP Packet detected";)
     """
     import mysql.connector
 
     mydb = mysql.connector.connect(
         host="127.0.0.1",
         user="root",
-        password="root",
+        password="Mydatabase123!",
         database="user_ruleset"
     )
 
@@ -201,6 +201,8 @@ def insert_new_rule_to_db(rule: str):
 
     sql_query = "INSERT INTO rules (RuleName) VALUES (%s)"
     mycursor.execute(sql_query, rule)
+    
+    
 
     mydb.commit()
     
