@@ -7,7 +7,7 @@ from PIL import ImageTk,Image
 class Win1:
     def __init__(self, master):
         self.master = master
-        self.master.geometry("400x300")
+        self.master.geometry("500x400")
         self.master.title("Signature-Based IDS")
         self.show_widgets()
         self.master_icon = PhotoImage(file='images/msdos.ico')
@@ -110,6 +110,7 @@ class Win3(Win2):
     
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
+        self.entry = tk.Text(self.master,  height=1, width=50,bg='white') 
         
         self.label1 = tk.Label(
             self.frame, text="Syntax of writing Snort rule: \n alert ip any any -> any any (msg: 'IP Packet Detected';)"
@@ -139,7 +140,7 @@ class Win3(Win2):
   
         # creating a entry for input
         # name using widget Entry
-        # self.entry = tk.Entry(root,textvariable = rule_var, font=('calibre',10,'normal'))
+        # self.entry = tk.Entry(self.master,textvariable = rule_var, font=('calibre',10,'normal'))
         
         # add one text box
         # t1 = self.Text(root._w,  height=1, width=50,bg='white') 
@@ -165,16 +166,43 @@ class Win3(Win2):
 
         self.label1.pack(side=TOP, padx=15, pady=20)
         self.label2.pack(side=TOP, padx=15, pady=20)
+        self.entry.pack(side=TOP, padx=15, pady=20)
+
         self.frame.pack(side=TOP, padx=15, pady=20)
-        # self.entry.pack(side=TOP, padx=15, pady=20)
+        
 
     # def submit(self):
     #     rule=rule_var.get(self)
     #     print("Custom Rule: "+ rule)
     #     rule_var.set("")
 
-    
+    def handle_add_rule_click(self):
+        # get the value
+        new_rule = self.label1.getvalue()
 
+        #insert rule
+        insert_new_rule_to_db(new_rule)
+
+    
+def insert_new_rule_to_db(rule: str):
+    """
+    rule: alert any any
+    """
+    import mysql.connector
+
+    mydb = mysql.connector.connect(
+        host="127.0.0.1",
+        user="root",
+        password="root",
+        database="user_ruleset"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql_query = "INSERT INTO rules (RuleName) VALUES (%s)"
+    mycursor.execute(sql_query, rule)
+
+    mydb.commit()
     
 
 
