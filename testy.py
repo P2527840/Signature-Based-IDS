@@ -139,7 +139,7 @@ class Win3(Win2):
   
         # creating a entry for input
         # name using widget Entry
-        self.entry = tk.Entry(root,textvariable = rule_var, font=('calibre',10,'normal'))
+        # self.entry = tk.Entry(root,textvariable = rule_var, font=('calibre',10,'normal'))
         
         # add one text box
         # t1 = self.Text(root._w,  height=1, width=50,bg='white') 
