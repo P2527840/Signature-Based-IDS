@@ -1,7 +1,9 @@
 from tkinter import *
 import tkinter as tk
 from PIL import ImageTk,Image
- 
+
+# rule_var=tk.StringVar()
+
 class Win1:
     def __init__(self, master):
         self.master = master
@@ -10,6 +12,7 @@ class Win1:
         self.show_widgets()
         self.master_icon = PhotoImage(file='images/msdos.ico')
         self.master.tk.call('wm', 'iconphoto', root._w, self.master_icon)
+
  
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
@@ -42,6 +45,8 @@ class Win1:
         butt.pack()
         butt.configure(image=img)
         return img, butt
+    
+    
  
     def new_window(self, _class):
             global win2, win3
@@ -89,6 +94,7 @@ class Win2(Win1):
                                 "",
                                 lambda: self.close_window(),
                                 "images/Quit.ico")
+                                
  
  
  
@@ -99,18 +105,81 @@ class Win3(Win2):
         self.master.title("Add Rule")
         self.master_icon = PhotoImage(file='images/msdos.ico')
         self.master.tk.call('wm', 'iconphoto', root._w, self.master_icon)
- 
+
+        
+    
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
+        
+        self.label1 = tk.Label(
+            self.frame, text="Syntax of writing Snort rule: \n alert ip any any -> any any (msg: 'IP Packet Detected';)"
+            )
+        
+        self.label2 = tk.Label(
+            self.frame, text="Example of Snort rule: \n log tcp !192.168.0/24 any -> 192.168.0.33 (msg: 'mounted access' ; ) )"
+            )
+        # Button for adding rule from user
+        self.img, self.button2 = self.create_button(
+                                "",
+                                lambda: self.new_window(Win3),
+                                "images/add.ico", )
+        # self.button2.place(x=100, y=75)
+        
+        
+        
         self.img1, self.quit_button = self.create_button(
                                     "",
                                     lambda: self.close_window(),
                                     "images/Quit.ico")
-        self.label = tk.Label(
-            # self.frame, text="THIS IS ONLY IN THE THIRD WINDOW"
-            )
-        self.label.pack()
-        self.frame.pack()
+        # self.quit_button.place(x=100, y=50)
+        
+        # creating a label for
+        # name using widget Label
+        # self.label = tk.Label(root, text = 'Username', font=('calibre',10, 'bold'))
+  
+        # creating a entry for input
+        # name using widget Entry
+        self.entry = tk.Entry(root,textvariable = rule_var, font=('calibre',10,'normal'))
+        
+        # add one text box
+        # t1 = self.Text(root._w,  height=1, width=50,bg='white') 
+        # t1.grid(row=3,column=2)
+
+        # l0 = tk.Label(root._w,  text='',
+        # font=('Helvetica', 16), width=30,anchor="c" )
+        # # l0.grid(row=1,column=1,columnspan=4)
+
+        # l1 = tk.Label(root._w,  text='Rule: ', width=10,anchor="c" )  
+        # l1.grid(row=3,column=1)
+        
+        # my_str = tk.StringVar()
+        # l5 = tk.Label(root,  textvariable=my_str, width=10 )  
+        # l5.grid(row=3,column=3) 
+        # my_str.set("Output")
+        # def add_data():
+        #     flag_validation=True # set the flag 
+        #     my_name=t1.get("1.0",END) # read name
+        #     if(len(my_name) < 50 ):
+        #         # or len(my_class)<2  or len(my_gender) < 2 
+        #         flag_validation=False 
+
+        self.label1.pack(side=TOP, padx=15, pady=20)
+        self.label2.pack(side=TOP, padx=15, pady=20)
+        self.frame.pack(side=TOP, padx=15, pady=20)
+        # self.entry.pack(side=TOP, padx=15, pady=20)
+
+    # def submit(self):
+    #     rule=rule_var.get(self)
+    #     print("Custom Rule: "+ rule)
+    #     rule_var.set("")
+
+    
+
+    
+
+
+
+        
  
  
  
