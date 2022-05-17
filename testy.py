@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import tkinter as tk
 from PIL import ImageTk,Image
 
@@ -106,7 +107,6 @@ class Win3(Win2):
         self.master_icon = PhotoImage(file='images/msdos.ico')
         self.master.tk.call('wm', 'iconphoto', root._w, self.master_icon)
 
-        
     
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
@@ -121,12 +121,10 @@ class Win3(Win2):
             )
         # Button for adding rule from user
         self.img, self.button2 = self.create_button(
-                                "",
-                                lambda: self.new_window(Win3),
+                                "", 
+                                lambda: self.handle_add_rule_click(),
                                 "images/add.ico", )
         # self.button2.place(x=100, y=75)
-        
-        
         
         self.img1, self.quit_button = self.create_button(
                                     "",
@@ -177,11 +175,20 @@ class Win3(Win2):
     #     rule_var.set("")
 
     def handle_add_rule_click(self):
+        """
+        This function handles the code when the user clicks the button
+        """
         # get the value
-        new_rule = self.label1.getvalue()
-        new_rule.set()
+        new_rule =self.entry.get('1.0', 'end-1c')
+        success = insert_new_rule_to_db(new_rule)
+        if success == 0:
+            print('Success')
         #insert rule
-        insert_new_rule_to_db(new_rule)
+        elif success == 1:
+            print('Failure')
+        
+
+    
 
     
 def insert_new_rule_to_db(rule: str):
@@ -190,21 +197,28 @@ def insert_new_rule_to_db(rule: str):
     """
     import mysql.connector
 
-    mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Mydatabase123!",
-        database="user_ruleset"
-    )
+    try:
+        mydb = mysql.connector.connect(
+            host="127.0.0.1",
+            user="root",
+            password="Mydatabase123!",
+            database="user_ruleset"
+        )
 
-    mycursor = mydb.cursor()
+        mycursor = mydb.cursor()
 
-    sql_query = "INSERT INTO rules (RuleName) VALUES (%s)"
-    mycursor.execute(sql_query, rule)
+        sql_query = """INSERT INTO rules (RuleName) VALUES (%s)"""
+        mycursor.execute(sql_query, (rule,))
     
-    
+        mydb.commit()
+        return 0
 
-    mydb.commit()
+    except mysql.connector.Error as error:
+        print("Failed to insert {}".format(error))
+        return 1
+    # print(mycursor.rowcount, "Rule added to Database")
+    # mycursor.close()
+
     
 
 
