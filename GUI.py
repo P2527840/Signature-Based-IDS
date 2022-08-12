@@ -8,7 +8,7 @@ from PIL import ImageTk,Image
 class Win1:
     def __init__(self, master):
         self.master = master
-        self.master.geometry("500x400")
+        self.master.geometry("760x600")
         self.master.title("Signature-Based IDS")
         self.show_widgets()
         self.master_icon = PhotoImage(file='images/msdos.ico')
@@ -17,6 +17,15 @@ class Win1:
  
     def show_widgets(self):
         self.frame = tk.Frame(self.master)
+        self.label1 = tk.Label(
+            self.frame, text="What is Snort? \n Snort is the foremost Open Source Intrusion Prevention System (IPS) in the world. \n Snort IPS uses a series of rules that help define malicious network activity and uses \n those rules to  find packets that match against them and generates alerts for users. \n Snort can be deployed inline to stop these packets, as well."
+            )
+        self.label2 = tk.Label(
+            self.frame, text="\n Snort has three primary uses: As a packet sniffer like tcpdump, as a packet logger — which is useful for network traffic debugging, \n or it can be used as a full-blown network intrusion prevention system. \n Snort can be downloaded and configured for personal and business use alike."
+            )
+        self.label3 = tk.Label(
+            self.frame, text="All rules added here will be listed in the database"
+            )
         self.img1, self.button1 = self.create_button("",
             lambda: self.new_window(Win2),
             "images/View Rule List.ico")
@@ -26,6 +35,9 @@ class Win1:
         self.img3, self.quit_button3 = self.create_button("",
                         lambda: self.close_window(),
                         "images/Quit.ico")
+        self.label1.pack(side=TOP, padx=2, pady=5)  
+        self.label2.pack(side=TOP, padx=2, pady=5)   
+        self.label3.pack(side=TOP, padx=2, pady=5)           
         self.frame.pack()
  
     def create_button(self, text, command, icon_path):
@@ -38,7 +50,7 @@ class Win1:
             self.frame,
             border=0,
             relief="ridge",
-            compound=tk.CENTER,
+            compound=tk.LEFT,
             text=text,
             fg="black",
             font="Arial 12",
@@ -114,11 +126,11 @@ class Win3(Win2):
         self.frame = tk.Frame(self.master)
         self.entry1 = tk.Text(self.master, height=1, width=50, bg='white') 
         
-        self.label1 = tk.Label(
+        self.label4 = tk.Label(
             self.frame, text="Syntax of writing Snort rule: \n alert ip any any -> any any (msg: 'IP Packet Detected';)"
             )
         
-        self.label2 = tk.Label(
+        self.label5 = tk.Label(
             self.frame, text="Example of Snort rule: \n log tcp !192.168.0/24 any -> 192.168.0.33 (msg: 'mounted access' ;)"
             )
         # Button for adding rule from user
@@ -164,8 +176,8 @@ class Win3(Win2):
         #         # or len(my_class)<2  or len(my_gender) < 2 
         #         flag_validation=False 
 
-        self.label1.pack(side=TOP, padx=15, pady=20)
-        self.label2.pack(side=TOP, padx=15, pady=20)
+        self.label4.pack(side=TOP, padx=15, pady=20)
+        self.label5.pack(side=TOP, padx=15, pady=20)
         self.entry1.pack(side=TOP, padx=15, pady=20)
 
         self.frame.pack(side=TOP, padx=15, pady=20)
